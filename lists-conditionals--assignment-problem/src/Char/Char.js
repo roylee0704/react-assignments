@@ -10,6 +10,6 @@ export default (props) => {
     };
 
     return (
-        <div style={styles} onClick={props.click}>{props.char}</div>
+        <div style={styles} onClick={props.clicked}>{props.char}</div>
     )
 }

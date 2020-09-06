@@ -1,35 +1,32 @@
 import React, { Component } from 'react';
 import './App.css';
-import ValidationComponent from './ValidationComponent/ValidationComponent';
-import CharComponent from './CharComponent/CharComponent';
+import Validation from './Validation/Validation';
+import Char from './Char/Char';
 
 class App extends Component {
   state = {
-    text: '',
+    userInput: '',
   }
 
   inputTextChangedHandler = (event) => {
     this.setState({
-      text: event.target.value
+      userInput: event.target.value
     })
   };
 
-  charDeleteHandler = (charIndex) => {
-
-    const text = this.state.text;
-    const chars = text.split('');
+  deleteCharHandler = (charIndex) => {
+    const chars = this.state.userInput.split('');
     chars.splice(charIndex, 1);
     this.setState({
-      text: chars.join('')
+      userInput: chars.join('')
     })
   }
-
 
   render() {
     const charList = (
       <div>
         {
-          this.state.text.split('').map((char, index) => <CharComponent key={char + index} char={char} click={() => this.charDeleteHandler(index)}></CharComponent>)
+          this.state.userInput.split('').map((char, index) => <Char key={char + index} char={char} clicked={() => this.deleteCharHandler(index)} />)
         }
       </div>
     );
@@ -46,9 +43,9 @@ class App extends Component {
         </ol>
         <p>Hint: Keep in mind that JavaScript strings are basically arrays!</p>
 
-        <input type="text" onChange={this.inputTextChangedHandler} value={this.state.text}></input>
-        <p>{this.state.text.length}</p>
-        <ValidationComponent minTextLength="5" textLength={this.state.text.length} ></ValidationComponent>
+        <input type="text" onChange={this.inputTextChangedHandler} value={this.state.userInput}></input>
+        <p>{this.state.userInput.length}</p>
+        <Validation minTextLength="5" textLength={this.state.userInput.length} />
         {charList}
       </div >
     );
